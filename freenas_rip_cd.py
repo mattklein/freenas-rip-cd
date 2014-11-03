@@ -8,19 +8,6 @@ import subprocess
 import tempfile
 
 
-"""
-iTunes does a decent enough job at ripping CDs into one's iTunes library, but
-who's got an optical drive connected to their Mac these days?  I don't.  I do,
-however, have one in my FreeNAS system, so that's what I want to use to rip
-CDs.  This script does a decent enough job at that.  It first uses cdda2wav to
-rip the CD to a series of .wav files (using the -cddb flag to get disc and
-track info).  It then uses lame to convert the .wav files to .mp3s.  The final
-result is a directory in /tmp with mp3s, with a folder and filename structure
-that matches the metadata from CDDB.  Which is more or less what iTunes would
-have done.
-"""
-
-
 def _rl_input(prompt, prefill=''):
     readline.set_startup_hook(lambda: readline.insert_text(prefill))
     try:
