@@ -98,7 +98,7 @@ def main(prompt_for_disc_and_song_title_changes=True):
     print 'Year: %s' % disc_info.get('year')
     print 'Genre: %s' % disc_info.get('genre')
     resp = ''
-    while prompt_for_disc_and_song_title_changes and not resp in ('Y', 'N', 'YES', 'NO'):
+    while prompt_for_disc_and_song_title_changes and resp not in ('Y', 'N', 'YES', 'NO'):
         resp = _rl_input('\nMake any changes? (Y/N) ', prefill='N').upper().strip()
     if resp in ('Y', 'YES'):
         confirmed = False
@@ -111,7 +111,7 @@ def main(prompt_for_disc_and_song_title_changes=True):
 
     print '*** Songs ***\n%s' % '\n'.join('%s: %s' % (num, name) for num, name in songs.items())
     resp = ''
-    while prompt_for_disc_and_song_title_changes and not resp in ('Y', 'N', 'YES', 'NO'):
+    while prompt_for_disc_and_song_title_changes and resp not in ('Y', 'N', 'YES', 'NO'):
         resp = _rl_input('\nMake any changes? (Y/N) ', prefill='N').upper().strip()
     if resp in ('Y', 'YES'):
         confirmed = False
@@ -126,8 +126,8 @@ def main(prompt_for_disc_and_song_title_changes=True):
         songname_mp3 = os.path.join(BASEDIR_MP3, '%.2d %s.mp3' % (songnum, songname))
         # iTunes, when it imports a CD, uses an .mp3 encoder with 160 kbps ("high quality")
         # here, we use lame's "Fixed bit rate jstereo 128 kbps encoding, highest quality (recommended)"
-        subprocess.check_call('lame -h "%s" "%s" ' % (songname_wav, songname_mp3) + \
-              '--tt "%s" --ta "%s" --tl "%s" ' % (songname, disc_info.get('artist'), disc_info.get('album')) + \
+        subprocess.check_call('lame -h "%s" "%s" ' % (songname_wav, songname_mp3) +
+              '--tt "%s" --ta "%s" --tl "%s" ' % (songname, disc_info.get('artist'), disc_info.get('album')) +
               '--ty "%s" --tn "%s/%s" --tg "%s"' % (disc_info.get('year'), songnum, numsongs, disc_info.get('genre')),
               shell=True)
 
